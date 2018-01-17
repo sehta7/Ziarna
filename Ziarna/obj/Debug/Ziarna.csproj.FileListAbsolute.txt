@@ -1,0 +1,87 @@
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\bin\Debug\Ziarna.exe.config
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\bin\Debug\Ziarna.exe
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\bin\Debug\Ziarna.pdb
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\obj\Debug\Ziarna.Form1.resources
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\obj\Debug\Ziarna.exe
+D:\Moje\studia\informatyka stosowana\IX semestr\Ziarna\Ziarna\obj\Debug\Ziarna.pdb
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\bin\Debug\Ziarna.exe.config
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\bin\Debug\Ziarna.exe
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\bin\Debug\Ziarna.pdb
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.Form1.resources
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.csproj.CoreCompileInputs.cache
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.exe
+C:\Users\Net\Desktop\olka\multi\Ziarna\Ziarna\obj\Debug\Ziarna.pdb
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\bin\Debug\Ziarna.exe.config
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\obj\Debug\Ziarna.exe
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\obj\Debug\Ziarna.pdb
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\bin\Debug\Ziarna.exe
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\bin\Debug\Ziarna.pdb
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\obj\Debug\Ziarna.Form1.resources
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe.config
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\bin\Debug\Ziarna.pdb
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Form1.resources
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.CoreCompileInputs.cache
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.exe
+C:\Users\Net\Desktop\olka\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.pdb
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe.config
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.exe
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.pdb
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\bin\Debug\Ziarna.pdb
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Form1.resources
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+\\KRYWAN\RedirectedUserFolders\apodors3\Pulpit\multi\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe.config
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\bin\Debug\Ziarna.pdb
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Form1.resources
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.CoreCompileInputs.cache
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.exe
+C:\Users\Mama.Rodzinka\Desktop\Ziarna dobre\Ziarna\obj\Debug\Ziarna.pdb
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe.config
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.pdb
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Form1.resources
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.CoreCompileInputs.cache
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.exe
+C:\Users\Mama.Rodzinka\Desktop\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.pdb
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe.config
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.pdb
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Form1.resources
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.CoreCompileInputs.cache
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.exe
+C:\Users\Net\Desktop\olka\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.pdb
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe.config
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.exe
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\bin\Debug\Ziarna.pdb
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csprojResolveAssemblyReference.cache
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Form1.resources
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.Properties.Resources.resources
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.GenerateResource.Cache
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.csproj.CoreCompileInputs.cache
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.exe
+C:\Users\Olka\Desktop\studia\olka\Ziarna dobre\Ziarna\obj\Debug\Ziarna.pdb
