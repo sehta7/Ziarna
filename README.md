@@ -11,3 +11,6 @@ Several of the selected options:
 - grains boundaries
 - energy distribution
 
+Example of Monte Carlo growth:
+
+![monte](https://user-images.githubusercontent.com/29467813/46071675-d945b900-c180-11e8-8e9f-2fc77438d6cc.PNG)
