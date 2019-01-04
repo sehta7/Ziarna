@@ -10,6 +10,6 @@ namespace Ziarna
     class Colors
     {
         public Pen Pen { get; set; }
-        public int count { get; set; }
+        public int Count { get; set; }
     }
 }
