@@ -9,13 +9,13 @@ namespace Ziarna
 {
     class PenState
     {
-        public Pen pen { get; set; }
-        public int st { get; set; }
+        public Pen PenColor { get; set; }
+        public int State { get; set; }
 
         public PenState(Pen color, int state)
         {
-            this.pen = color;
-            this.st = state;
+            this.PenColor = color;
+            this.State = state;
         }
     }
 }
