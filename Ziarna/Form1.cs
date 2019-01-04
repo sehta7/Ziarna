@@ -13,71 +13,65 @@ namespace Ziarna
 {
     public partial class Form1 : Form
     {
-        List<Grain> grains;
-        Grain[,] previousStep;
-        Grain[,] currentStep;
-        Grain[,] originalPicture;
-        Bitmap bitmap;
-        List<Pen> colors = new List<Pen>();
-        Pen state;
-        Grain[,] selectedGrains;
-        List<Pen> pens;
+        private static int width;
+        private static int height;
+
+        private Board board;
 
         public Form1()
         {
             InitializeComponent();
-            bitmap = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            previousStep = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
-            currentStep = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
-            originalPicture = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
-            selectedGrains = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
+            width = pictureBox1.Size.Width;
+            height = pictureBox1.Size.Height;
+            List<Grain> grains = new List<Grain>();
+            Grain[,] previousStep = new Grain[width, height];
+            Grain[,] currentStep = new Grain[width, height];
+            board = new Board(grains, previousStep, currentStep);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (int.Parse(textBox1.Text) > 250 || int.Parse(textBox2.Text) > 150)
+            InitializeBoard();
+
+        }
+
+        private void InitializeBoard()
+        {
+            SetSize();
+            board.InitializeGrainTables(width, height);
+            GenerateGrains();
+            board.InitializeFirstStep(width, height);
+            DrawGrains();
+        }
+
+        private void SetSize()
+        {
+            int chosenBoardWidth = int.Parse(textBox1.Text);
+            int chosenBoardHeight = int.Parse(textBox2.Text);
+
+            if (chosenBoardWidth > 250 || chosenBoardHeight > 150)
             {
                 pictureBox1.Size = new Size(250, 150);
             }
             else
             {
-                pictureBox1.Size = new Size(int.Parse(textBox1.Text), int.Parse(textBox2.Text));
+                pictureBox1.Size = new Size(chosenBoardWidth, chosenBoardHeight);
             }
-            grains = new List<Grain>();
-            if (state == null)
-            {
-                previousStep = InitiazlizeGrainTable(previousStep);
-                currentStep = InitiazlizeGrainTable(currentStep);
-            }
-            else
-            {
-                previousStep = InitiazlizeNotEmpty(previousStep);
-                currentStep = InitiazlizeNotEmpty(currentStep);
-                selectedGrains = InitiazlizeNotEmpty(previousStep);
-            }
-            originalPicture = InitiazlizeGrainTable(originalPicture);
-            GenerateGrains();
-            InitialFirstStep();
-            if (bitmap == null)
-            {
-                bitmap = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            }
-            DrawGrains();
-
         }
 
-        private Grain[,] InitiazlizeGrainTable(Grain[,] tab)
+        private void GenerateGrains()
         {
-            for (int i = 0; i < pictureBox1.Width; i++)
-                for (int j = 0; j < pictureBox1.Height; j++)
-                {
-                    tab[i, j] = new Grain()
-                    {
-                        State = 0,
-                        Pen = new Pen(color: Color.White)
-                    };
-                }
-            return tab;
+            int chosenBoardWidth = int.Parse(textBox1.Text);
+            int chosenBoardHeight = int.Parse(textBox2.Text);
+
+            int chosenGrainsNumber = Int32.Parse(textBox3.Text);
+
+            board.GenerateGrains(chosenGrainsNumber, chosenBoardWidth, chosenBoardHeight);
+        }
+
+        private void DrawGrains()
+        {
+            pictureBox1.Image = board.DrawGrains();
         }
 
         private Grain[,] InitiazlizeNotEmpty(Grain[,] tab)
@@ -85,66 +79,20 @@ namespace Ziarna
             for (int i = 0; i < pictureBox1.Width; i++)
                 for (int j = 0; j < pictureBox1.Height; j++)
                 {
-                    if (tab[i, j].Pen.Color.A != state.Color.A &&
-                        tab[i, j].Pen.Color.B != state.Color.B &&
-                        tab[i, j].Pen.Color.G != state.Color.G &&
-                        tab[i, j].Pen.Color.R != state.Color.R)
+                    if (tab[i, j].PenColor.Color.A != state.Color.A &&
+                        tab[i, j].PenColor.Color.B != state.Color.B &&
+                        tab[i, j].PenColor.Color.G != state.Color.G &&
+                        tab[i, j].PenColor.Color.R != state.Color.R)
                     {
                         tab[i, j] = new Grain()
                         {
                             State = 0,
-                            Pen = new Pen(color: Color.White)
+                            PenColor = new Pen(color: Color.White)
                         };
                     }
                     
                 }
             return tab;
-        }
-
-        private void DrawGrains()
-        {
-
-            Graphics g = Graphics.FromImage(bitmap);
-            foreach (var grain in grains)
-            {
-                g.DrawRectangle(grain.Pen, grain.PositionX, grain.PositionY, 1, 1);
-            }
-
-            pictureBox1.Image = bitmap;
-
-        }
-
-        private void InitialFirstStep()
-        {
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    foreach (var grain in grains)
-                    {
-                        if (i == grain.PositionX && j == grain.PositionY)
-                        {
-                            if (grain.Pen == state)
-                            {
-                                previousStep[i, j].State = 1;
-                                previousStep[i, j].Pen = state;
-                                currentStep[i, j].State = 1;
-                                currentStep[i, j].Pen = state;
-                            }
-                            else
-                            {
-                                previousStep[i, j].State = 1;
-                                previousStep[i, j].Pen = grain.Pen;
-                                currentStep[i, j].State = 1;
-                                currentStep[i, j].Pen = grain.Pen;
-                            }
-
-                        }
-
-                    }
-                }
-
-            }
         }
 
         private void InitialStep()
@@ -157,15 +105,15 @@ namespace Ziarna
                     {
                         if (i == grain.PositionX && j == grain.PositionY)
                         {
-                            if (grain.Pen == state)
+                            if (grain.PenColor == state)
                             {
                                 previousStep[i, j].State = 1;
-                                previousStep[i, j].Pen = state;
+                                previousStep[i, j].PenColor = state;
                             }
                             else
                             {
                                 previousStep[i, j].State = 1;
-                                previousStep[i, j].Pen = grain.Pen;
+                                previousStep[i, j].PenColor = grain.PenColor;
                             }
 
                         }
@@ -174,29 +122,6 @@ namespace Ziarna
                 }
 
             }
-        }
-
-        private void GenerateGrains()
-        {
-            Random random = new Random();
-            for (int i = 0; i < Int32.Parse(textBox3.Text); i++)
-            {
-                int x = random.Next(0, pictureBox1.Size.Width);
-                int y = random.Next(0, pictureBox1.Size.Height);
-                var grain = new Grain()
-                {
-        
-                    Pen = new Pen(Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 255))),
-                    PositionX = x,
-                    PositionY = y,
-                    State = 1
-                };
-                grains.Add(grain);
-                colors.Add(grain.Pen);
-            }
-
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -246,112 +171,112 @@ namespace Ziarna
                             n++;
                             m++;
                             if (state != null &&
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i + 1, j].Pen);
+                            colorsTable.Add(previousStep[i + 1, j].PenColor);
                         }
                         if (i < pictureBox1.Size.Width - 1 && j < pictureBox1.Size.Height - 1 && previousStep[i + 1, j + 1].State == 1)
                         {
                             n++;
                             o++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i + 1, j + 1].Pen);
+                            colorsTable.Add(previousStep[i + 1, j + 1].PenColor);
                         }
                         if (i < pictureBox1.Size.Width - 1 && j > 0 && previousStep[i + 1, j - 1].State == 1)
                         {
                             n++;
                             o++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i + 1, j - 1].Pen);
+                            colorsTable.Add(previousStep[i + 1, j - 1].PenColor);
                         }
                         if (j < pictureBox1.Size.Height - 1 && previousStep[i, j + 1].State == 1)
                         {
                             n++;
                             m++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i, j + 1].Pen);
+                            colorsTable.Add(previousStep[i, j + 1].PenColor);
                         }
                         if (j > 0 && previousStep[i, j - 1].State == 1)
                         {
                             n++;
                             m++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i, j - 1].Pen);
+                            colorsTable.Add(previousStep[i, j - 1].PenColor);
                         }
                         if (i > 0 && previousStep[i - 1, j].State == 1)
                         {
                             n++;
                             m++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i - 1, j].Pen);
+                            colorsTable.Add(previousStep[i - 1, j].PenColor);
                         }
                         if (i > 0 && j < pictureBox1.Size.Height - 1 && previousStep[i - 1, j + 1].State == 1)
                         {
                             n++;
                             o++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i - 1, j + 1].Pen);
+                            colorsTable.Add(previousStep[i - 1, j + 1].PenColor);
                         }
                         if (i > 0 && j > 0 && previousStep[i - 1, j - 1].State == 1)
                         {
                             n++;
                             o++;
                             if (state != null && 
-                                currentStep[i, j].Pen.Color.A == state.Color.A &&
-                                currentStep[i, j].Pen.Color.B == state.Color.B &&
-                                currentStep[i, j].Pen.Color.G == state.Color.G &&
-                                currentStep[i, j].Pen.Color.R == state.Color.R)
+                                currentStep[i, j].PenColor.Color.A == state.Color.A &&
+                                currentStep[i, j].PenColor.Color.B == state.Color.B &&
+                                currentStep[i, j].PenColor.Color.G == state.Color.G &&
+                                currentStep[i, j].PenColor.Color.R == state.Color.R)
                             {
                                 continue;
                             }
-                            colorsTable.Add(previousStep[i - 1, j - 1].Pen);
+                            colorsTable.Add(previousStep[i - 1, j - 1].PenColor);
                         }
 
                         int x = 1;
@@ -397,47 +322,47 @@ namespace Ziarna
                         if (n > 5 && n < 8)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
                         }
                         else if (m > 3 && m < 5)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
                            
                         }
                         else if (o > 3 && o < 5)
                         {
                             currentStep[i, j].State = 1;
-                                if (previousStep[i, j].Pen == state)
+                                if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
                          
                         }
                         else if (max > 0 && probability < Int32.Parse(textBox4.Text) && n > 0)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
                            
                         }
@@ -453,7 +378,7 @@ namespace Ziarna
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
                     previousStep[i, j].State = currentStep[i, j].State;
-                    previousStep[i, j].Pen = currentStep[i, j].Pen;
+                    previousStep[i, j].PenColor = currentStep[i, j].PenColor;
                 }
             }
 
@@ -465,7 +390,7 @@ namespace Ziarna
                 {
                     if (previousStep[i, j].State == 1)
                     {
-                        gr.DrawRectangle(currentStep[i, j].Pen, i, j, 1, 1);
+                        gr.DrawRectangle(currentStep[i, j].PenColor, i, j, 1, 1);
                     }
 
                 }
@@ -486,7 +411,7 @@ namespace Ziarna
                     for (int j = 0; j < pictureBox1.Size.Height - 1; j++)
                     {
 
-                        file.WriteLine("{0} {1} {2} {3}", i, j, currentStep[i, j].State, ColorTranslator.ToHtml(currentStep[i, j].Pen.Color));
+                        file.WriteLine("{0} {1} {2} {3}", i, j, currentStep[i, j].State, ColorTranslator.ToHtml(currentStep[i, j].PenColor.Color));
                     }
                 }
 
@@ -530,7 +455,7 @@ namespace Ziarna
                     PositionX = Int32.Parse(data[0]),
                     PositionY = Int32.Parse(data[1]),
                     State = Int32.Parse(data[2]),
-                    Pen = new Pen(ColorTranslator.FromHtml((data[3])))
+                    PenColor = new Pen(ColorTranslator.FromHtml((data[3])))
                 };
                 grains.Add(grain);
 
@@ -556,7 +481,7 @@ namespace Ziarna
                 {
                     for (int k = 0; k < pictureBox1.Size.Height - 1; k++)
                     {
-                        if (previousStep[j, k].Pen != previousStep[j+1, k+1].Pen)
+                        if (previousStep[j, k].PenColor != previousStep[j+1, k+1].PenColor)
                         {
                             int pointX = j;
                             int pointY = k;
@@ -586,7 +511,7 @@ namespace Ziarna
                         inclusion[i, j] = new Grain()
                         {
                             State = 1,
-                            Pen = new Pen(color: Color.Black),
+                            PenColor = new Pen(color: Color.Black),
                             PositionX = inclusions[k].X,
                             PositionY = inclusions[k].Y
                         };
@@ -638,7 +563,7 @@ namespace Ziarna
                 {
                     for (int k = 0; k < pictureBox1.Size.Height - 1; k++)
                     {
-                        if (previousStep[j, k].Pen != previousStep[j + 1, k + 1].Pen)
+                        if (previousStep[j, k].PenColor != previousStep[j + 1, k + 1].PenColor)
                         {
                             int pointX = j; 
                             int pointY = k; 
@@ -668,7 +593,7 @@ namespace Ziarna
                         inclusion[i, j] = new Grain()
                         {
                             State = 1,
-                            Pen = new Pen(color: Color.Black),
+                            PenColor = new Pen(color: Color.Black),
                             PositionX = inclusions[k].X,
                             PositionY = inclusions[k].Y
                         };
@@ -688,27 +613,27 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    if (state.Color.A == currentStep[i, j].Pen.Color.A &&
-                        state.Color.B == currentStep[i, j].Pen.Color.B &&
-                        state.Color.G == currentStep[i, j].Pen.Color.G &&
-                        state.Color.R == currentStep[i, j].Pen.Color.R)
+                    if (state.Color.A == currentStep[i, j].PenColor.Color.A &&
+                        state.Color.B == currentStep[i, j].PenColor.Color.B &&
+                        state.Color.G == currentStep[i, j].PenColor.Color.G &&
+                        state.Color.R == currentStep[i, j].PenColor.Color.R)
                     {
-                        previousStep[i, j].Pen = state;
+                        previousStep[i, j].PenColor = state;
                         previousStep[i, j].State = 1;
                         previousStep[i, j].PositionX = i;
                         previousStep[i, j].PositionY = j;
-                        currentStep[i, j].Pen = state;
+                        currentStep[i, j].PenColor = state;
                         currentStep[i, j].State = 1;
                         currentStep[i, j].PositionX = i;
                         currentStep[i, j].PositionY = j;
                     }
                     else
                     {
-                        previousStep[i, j].Pen = new Pen(Color.White);
+                        previousStep[i, j].PenColor = new Pen(Color.White);
                         previousStep[i, j].State = 0;
                         previousStep[i, j].PositionX = i;
                         previousStep[i, j].PositionY = j;
-                        currentStep[i, j].Pen = new Pen(Color.White);
+                        currentStep[i, j].PenColor = new Pen(Color.White);
                         currentStep[i, j].State = 0;
                         currentStep[i, j].PositionX = i;
                         currentStep[i, j].PositionY = j;
@@ -731,7 +656,7 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    g.DrawRectangle(currentStep[i, j].Pen, currentStep[i, j].PositionX, currentStep[i, j].PositionY, 1, 1);
+                    g.DrawRectangle(currentStep[i, j].PenColor, currentStep[i, j].PositionX, currentStep[i, j].PositionY, 1, 1);
                 }
                 
             }            
@@ -752,7 +677,7 @@ namespace Ziarna
                     for (int k = 0; k < pictureBox1.Size.Height; k++)
                     {
                         
-                        if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].Pen != previousStep[j + 1, k].Pen) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].Pen != previousStep[j, k + 1].Pen))
+                        if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].PenColor != previousStep[j + 1, k].PenColor) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].PenColor != previousStep[j, k + 1].PenColor))
                         {
                             int pointX = j;
                             int pointY = k;
@@ -796,14 +721,14 @@ namespace Ziarna
             {
                 for (int k = 0; k < pictureBox1.Size.Height; k++)
                 {
-                    if (previousStep[j, k].Pen.Color == Color.White)
+                    if (previousStep[j, k].PenColor.Color == Color.White)
                     {
                         point = new Point(j, k);
                         white.Add(point);
                         continue;
                     }
 
-                    if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].Pen != previousStep[j + 1, k].Pen) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].Pen != previousStep[j, k + 1].Pen))
+                    if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].PenColor != previousStep[j + 1, k].PenColor) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].PenColor != previousStep[j, k + 1].PenColor))
                     {
                         int pointX = j + 1;
                         int pointY = k;
@@ -869,7 +794,7 @@ namespace Ziarna
                     grain.PositionX = i;
                     grain.PositionY = j;
                     int x = random.Next(pens.Count);
-                    grain.Pen = pens[x];
+                    grain.PenColor = pens[x];
                     grain.State = x;
                     grains.Add(grain);
                     //colors.Add(grain.Pen);
@@ -885,7 +810,7 @@ namespace Ziarna
                         if (i == grain.PositionX && j == grain.PositionY)
                         {
                             previousStep[i, j].State = grain.State;
-                            previousStep[i, j].Pen = grain.Pen;
+                            previousStep[i, j].PenColor = grain.PenColor;
                         }
 
                     }
@@ -980,7 +905,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i - 1, j - 1].State;
-                                previousStep[i, j].Pen = previousStep[i - 1, j - 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i - 1, j - 1].PenColor;
                             }
                         }
                         break;
@@ -992,7 +917,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i - 1, j + 1].State;
-                                previousStep[i, j].Pen = previousStep[i - 1, j + 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i - 1, j + 1].PenColor;
                             }
                         }
                         break;
@@ -1004,7 +929,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i - 1, j].State;
-                                previousStep[i, j].Pen = previousStep[i - 1, j].Pen;
+                                previousStep[i, j].PenColor = previousStep[i - 1, j].PenColor;
                             }
                         }
                         break;
@@ -1016,7 +941,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i + 1, j - 1].State;
-                                previousStep[i, j].Pen = previousStep[i + 1, j - 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i + 1, j - 1].PenColor;
                             }
                         }
                         break;
@@ -1028,7 +953,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i, j - 1].State;
-                                previousStep[i, j].Pen = previousStep[i, j - 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i, j - 1].PenColor;
                             }
                         }
                         break;
@@ -1040,7 +965,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i + 1, j + 1].State;
-                                previousStep[i, j].Pen = previousStep[i + 1, j + 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i + 1, j + 1].PenColor;
                             }
                         }
                         break;
@@ -1052,7 +977,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i + 1, j].State;
-                                previousStep[i, j].Pen = previousStep[i + 1, j].Pen;
+                                previousStep[i, j].PenColor = previousStep[i + 1, j].PenColor;
                             }
                         }
                         break;
@@ -1064,7 +989,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i, j + 1].State;
-                                previousStep[i, j].Pen = previousStep[i, j + 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i, j + 1].PenColor;
                             }
                         }
                         break;
@@ -1077,7 +1002,7 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                        gr.DrawRectangle(previousStep[i, j].Pen, i, j, 1, 1);
+                        gr.DrawRectangle(previousStep[i, j].PenColor, i, j, 1, 1);
 
                 }
             }
@@ -1096,12 +1021,12 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    if (state.Color.A == previousStep[i, j].Pen.Color.A &&
-                        state.Color.B == previousStep[i, j].Pen.Color.B &&
-                        state.Color.G == previousStep[i, j].Pen.Color.G &&
-                        state.Color.R == previousStep[i, j].Pen.Color.R)
+                    if (state.Color.A == previousStep[i, j].PenColor.Color.A &&
+                        state.Color.B == previousStep[i, j].PenColor.Color.B &&
+                        state.Color.G == previousStep[i, j].PenColor.Color.G &&
+                        state.Color.R == previousStep[i, j].PenColor.Color.R)
                     {
-                        previousStep[i, j].Pen = state;
+                        previousStep[i, j].PenColor = state;
                         previousStep[i, j].State = 1;
                         previousStep[i, j].PositionX = i;
                         previousStep[i, j].PositionY = j;
@@ -1109,7 +1034,7 @@ namespace Ziarna
                     }
                     else
                     {
-                        previousStep[i, j].Pen = new Pen(Color.White);
+                        previousStep[i, j].PenColor = new Pen(Color.White);
                         previousStep[i, j].State = 0;
                         previousStep[i, j].PositionX = i;
                         previousStep[i, j].PositionY = j;
@@ -1131,7 +1056,7 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    g.DrawRectangle(previousStep[i, j].Pen, previousStep[i, j].PositionX, previousStep[i, j].PositionY, 1, 1);
+                    g.DrawRectangle(previousStep[i, j].PenColor, previousStep[i, j].PositionX, previousStep[i, j].PositionY, 1, 1);
                 }
 
             }
@@ -1214,63 +1139,63 @@ namespace Ziarna
                     int probability = rand.Next(100);
 
                     
-                    if (previousStep[i, j].State == 0 && previousStep[i,j].Pen != state)
+                    if (previousStep[i, j].State == 0 && previousStep[i,j].PenColor != state)
                     {
 
                         if (i < pictureBox1.Size.Width - 1 && previousStep[i + 1, j].State == 1)
                         {
                             n++;
                             m++;
-                            colorsTable.Add(previousStep[i + 1, j].Pen);
+                            colorsTable.Add(previousStep[i + 1, j].PenColor);
                         }
                         if (i < pictureBox1.Size.Width - 1 && j < pictureBox1.Size.Height - 1 && previousStep[i + 1, j + 1].State == 1)
                         {
                             n++;
                             o++;
                          
-                            colorsTable.Add(previousStep[i + 1, j + 1].Pen);
+                            colorsTable.Add(previousStep[i + 1, j + 1].PenColor);
                         }
                         if (i < pictureBox1.Size.Width - 1 && j > 0 && previousStep[i + 1, j - 1].State == 1)
                         {
                             n++;
                             o++;
                             
-                            colorsTable.Add(previousStep[i + 1, j - 1].Pen);
+                            colorsTable.Add(previousStep[i + 1, j - 1].PenColor);
                         }
                         if (j < pictureBox1.Size.Height - 1 && previousStep[i, j + 1].State == 1)
                         {
                             n++;
                             m++;
                             
-                            colorsTable.Add(previousStep[i, j + 1].Pen);
+                            colorsTable.Add(previousStep[i, j + 1].PenColor);
                         }
                         if (j > 0 && previousStep[i, j - 1].State == 1)
                         {
                             n++;
                             m++;
                             
-                            colorsTable.Add(previousStep[i, j - 1].Pen);
+                            colorsTable.Add(previousStep[i, j - 1].PenColor);
                         }
                         if (i > 0 && previousStep[i - 1, j].State == 1)
                         {
                             n++;
                             m++;
                             
-                            colorsTable.Add(previousStep[i - 1, j].Pen);
+                            colorsTable.Add(previousStep[i - 1, j].PenColor);
                         }
                         if (i > 0 && j < pictureBox1.Size.Height - 1 && previousStep[i - 1, j + 1].State == 1)
                         {
                             n++;
                             o++;
                             
-                            colorsTable.Add(previousStep[i - 1, j + 1].Pen);
+                            colorsTable.Add(previousStep[i - 1, j + 1].PenColor);
                         }
                         if (i > 0 && j > 0 && previousStep[i - 1, j - 1].State == 1)
                         {
                             n++;
                             o++;
                             
-                            colorsTable.Add(previousStep[i - 1, j - 1].Pen);
+                            colorsTable.Add(previousStep[i - 1, j - 1].PenColor);
                         }
 
                         for (int s = 0; s < colorsTable.Count; s++)
@@ -1330,47 +1255,47 @@ namespace Ziarna
                         if (n > 5 && n < 8)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
                         }
                         else if (m > 3 && m < 5)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
 
                         }
                         else if (o > 3 && o < 5)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
 
                         }
                         else if (max > 0 && probability < Int32.Parse(textBox4.Text) && n > 0)
                         {
                             currentStep[i, j].State = 1;
-                            if (previousStep[i, j].Pen == state)
+                            if (previousStep[i, j].PenColor == state)
                             {
                                 continue;
 
                             }
-                            currentStep[i, j].Pen = colorsTable[index];
+                            currentStep[i, j].PenColor = colorsTable[index];
 
 
                         }
@@ -1386,7 +1311,7 @@ namespace Ziarna
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
                     previousStep[i, j].State = currentStep[i, j].State;
-                    previousStep[i, j].Pen = currentStep[i, j].Pen;
+                    previousStep[i, j].PenColor = currentStep[i, j].PenColor;
                 }
             }
 
@@ -1398,7 +1323,7 @@ namespace Ziarna
                 {
                     if (previousStep[i, j].State == 1)
                     {
-                        gr.DrawRectangle(currentStep[i, j].Pen, i, j, 1, 1);
+                        gr.DrawRectangle(currentStep[i, j].PenColor, i, j, 1, 1);
                     }
 
                 }
@@ -1469,7 +1394,7 @@ namespace Ziarna
                         grain.PositionX = i;
                         grain.PositionY = j;
                         int x = random.Next(pens.Count);
-                        grain.Pen = pens[x];
+                        grain.PenColor = pens[x];
                         grain.State = x + 1;
                         grains.Add(grain);
                         //colors.Add(grain.Pen);
@@ -1487,7 +1412,7 @@ namespace Ziarna
                         if (i == grain.PositionX && j == grain.PositionY)
                         {
                             previousStep[i, j].State = grain.State;
-                            previousStep[i, j].Pen = grain.Pen;
+                            previousStep[i, j].PenColor = grain.PenColor;
                         }
 
                     }
@@ -1534,7 +1459,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i - 1, j - 1].State;
-                                previousStep[i, j].Pen = previousStep[i - 1, j - 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i - 1, j - 1].PenColor;
                             }
                         }
                         break;
@@ -1546,7 +1471,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i - 1, j + 1].State;
-                                previousStep[i, j].Pen = previousStep[i - 1, j + 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i - 1, j + 1].PenColor;
                             }
                         }
                         break;
@@ -1558,7 +1483,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i - 1, j].State;
-                                previousStep[i, j].Pen = previousStep[i - 1, j].Pen;
+                                previousStep[i, j].PenColor = previousStep[i - 1, j].PenColor;
                             }
                         }
                         break;
@@ -1570,7 +1495,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i + 1, j - 1].State;
-                                previousStep[i, j].Pen = previousStep[i + 1, j - 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i + 1, j - 1].PenColor;
                             }
                         }
                         break;
@@ -1582,7 +1507,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i, j - 1].State;
-                                previousStep[i, j].Pen = previousStep[i, j - 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i, j - 1].PenColor;
                             }
                         }
                         break;
@@ -1594,7 +1519,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i + 1, j + 1].State;
-                                previousStep[i, j].Pen = previousStep[i + 1, j + 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i + 1, j + 1].PenColor;
                             }
                         }
                         break;
@@ -1606,7 +1531,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i + 1, j].State;
-                                previousStep[i, j].Pen = previousStep[i + 1, j].Pen;
+                                previousStep[i, j].PenColor = previousStep[i + 1, j].PenColor;
                             }
                         }
                         break;
@@ -1618,7 +1543,7 @@ namespace Ziarna
                             if (delta <= 0)
                             {
                                 previousStep[i, j].State = previousStep[i, j + 1].State;
-                                previousStep[i, j].Pen = previousStep[i, j + 1].Pen;
+                                previousStep[i, j].PenColor = previousStep[i, j + 1].PenColor;
                             }
                         }
                         break;
@@ -1631,7 +1556,7 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    gr.DrawRectangle(previousStep[i, j].Pen, i, j, 1, 1);
+                    gr.DrawRectangle(previousStep[i, j].PenColor, i, j, 1, 1);
 
                 }
             }
@@ -1721,7 +1646,7 @@ namespace Ziarna
                                 gr.PositionY = k;
                                 gr.State = -1;
                                 gr.H = 0;
-                                gr.Pen = new Pen(Color.FromArgb(rand.Next(0, 255), 0, 0));
+                                gr.PenColor = new Pen(Color.FromArgb(rand.Next(0, 255), 0, 0));
                                 //energies.Add(gr);
                                 previousStep[j, k] = gr;
                             }
@@ -1737,7 +1662,7 @@ namespace Ziarna
                     for (int l = 0; l < pictureBox1.Size.Height; l++)
                     {
                         //Color col = previousStep[k, l].Pen.Color;
-                        g.DrawRectangle(previousStep[k, l].Pen, k, l, 10, 10);
+                        g.DrawRectangle(previousStep[k, l].PenColor, k, l, 10, 10);
                         //g.FillRectangle(new SolidBrush(col), k, l, 10, 10);
 
                     }
@@ -1837,7 +1762,7 @@ namespace Ziarna
                 for (int k = 0; k < pictureBox1.Size.Height; k++)
                 {
 
-                    if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].Pen != previousStep[j + 1, k].Pen) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].Pen != previousStep[j, k + 1].Pen))
+                    if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].PenColor != previousStep[j + 1, k].PenColor) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].PenColor != previousStep[j, k + 1].PenColor))
                     {
                         previousStep[j, k].H = 8;
                         previousStep[j, k].PositionX = j;
@@ -1863,7 +1788,7 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    g.DrawRectangle(previousStep[i, j].Pen, i, j, 1, 1);
+                    g.DrawRectangle(previousStep[i, j].PenColor, i, j, 1, 1);
                 }
             }
 
@@ -2006,7 +1931,7 @@ namespace Ziarna
                         if (delta <= 0)
                         {
                             previousStep[i, j].State = -1;
-                            previousStep[i, j].Pen = rec[x].Pen;
+                            previousStep[i, j].PenColor = rec[x].PenColor;
                             previousStep[i, j].H = 0;
                         }
                     }
@@ -2022,7 +1947,7 @@ namespace Ziarna
                     {
                         if (previousStep[k, l].State == -1)
                         {
-                            g.DrawRectangle(previousStep[k, l].Pen, k, l, 1, 1);
+                            g.DrawRectangle(previousStep[k, l].PenColor, k, l, 1, 1);
                         }
                         
 
@@ -2112,7 +2037,7 @@ namespace Ziarna
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    gr.DrawRectangle(previousStep[i, j].Pen, i, j, 1, 1);
+                    gr.DrawRectangle(previousStep[i, j].PenColor, i, j, 1, 1);
                 }
             }
 
