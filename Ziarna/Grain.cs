@@ -12,7 +12,7 @@ namespace Ziarna
         public int State { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public Pen Pen { get; set; }          
+        public Pen PenColor { get; set; }          
         public int H { get; set; }
     }
 }
