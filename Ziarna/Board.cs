@@ -23,24 +23,37 @@ namespace Ziarna
             this.GrainsInCurrentStep = grainsInCurrentStep;
         }
 
-        public void InitializeGrainTables(int width, int height)
+        public void InitializeGrainTables(int boardWidth, int boardHeight)
         {
-            InitializeGrainTable(GrainsInPreviousStep, width, height);
-            InitializeGrainTable(GrainsInCurrentStep, width, height);
+            InitializeGrainTable(GrainsInPreviousStep, boardWidth, boardHeight);
+            InitializeGrainTable(GrainsInCurrentStep, boardWidth, boardHeight);
         }
 
-        private void InitializeGrainTable(Grain[,] grains, int width, int height)
+        private void InitializeGrainTable(Grain[,] grains, int boardWidth, int boardHeight)
         {
-            for (int i = 0; i < width; i++)
+            for (int xPosition = 0; xPosition < boardWidth - 1; xPosition++)
             {
-                for (int j = 0; j < height; j++)
+                for (int yPosition = 0; yPosition < boardHeight - 1; yPosition++)
                 {
-                    grains[i, j] = new Grain()
-                    {
-                        State = 0,
-                        PenColor = new Pen(color: Color.White)
-                    };
+                    Point grainPosition = new Point(xPosition, yPosition);
+                    Pen grainPenColor = new Pen(Color.White);
+
+                    grains[xPosition, yPosition] = new Grain(grainPosition, grainPenColor);
                 }
+            }
+        }
+
+        private void AddGrainNeighbours(Grain grain, int boardWidth, int boardHeight)
+        {
+            List<Grain> neighbours = new List<Grain>();
+
+            if (grain.IsOnFrame(boardWidth, boardHeight))
+            {
+                neighbours = grain.AddSpecifiedNeighbours();
+            }
+            else
+            {
+                neighbours = grain.AddAllNeighbours();
             }
         }
 
@@ -49,26 +62,24 @@ namespace Ziarna
             Random random = new Random();
             for (int i = 0; i < numberOfGrains; i++)
             {
-                int x = random.Next(0, chosenBoardWidth);
-                int y = random.Next(0, chosenBoardHeight);
-                var grain = new Grain()
-                {
+                int xPosition = random.Next(0, chosenBoardWidth);
+                int yPosition = random.Next(0, chosenBoardHeight);
 
-                    PenColor = new Pen(Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 255))),
-                    PositionX = x,
-                    PositionY = y,
-                    State = 1
-                };
+                Point grainPosition = new Point(xPosition, yPosition);
+                Pen grainPenColor = new Pen(Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 255)));
+
+                Grain grain = new Grain(grainPosition, grainPenColor);
+                grain.SetGrainAlive();
                 Grains.Add(grain);
-                PenColors.Add(grain.PenColor);
+                PenColors.Add(grainPenColor);
             }
         }
 
         public void InitializeFirstStep(int chosenBoardWidth, int chosenBoardHeight)
         {
-            for (int i = 0; i < chosenBoardWidth; i++)
+            for (int i = 0; i < chosenBoardWidth - 1; i++)
             {
-                for (int j = 0; j < chosenBoardHeight; j++)
+                for (int j = 0; j < chosenBoardHeight - 1; j++)
                 {
                     InitializeFirstStepOfGrains(i, j, GrainsInPreviousStep);
                     InitializeFirstStepOfGrains(i, j, GrainsInCurrentStep);
@@ -76,14 +87,14 @@ namespace Ziarna
             }
         }
 
-        private void InitializeFirstStepOfGrains(int i, int j, Grain[,] grains)
+        private void InitializeFirstStepOfGrains(int xGrainPosition, int yGrainPosition, Grain[,] grains)
         {
             foreach (var grain in Grains)
             {
-                if (i == grain.PositionX && j == grain.PositionY)
+                if (xGrainPosition == grain.Position.X && yGrainPosition == grain.Position.Y)
                 {
-                    grains[i, j].State = 1;
-                    grains[i, j].PenColor = grain.PenColor;
+                    grains[xGrainPosition, yGrainPosition].Alive = true;
+                    grains[xGrainPosition, yGrainPosition].PenColor = grain.PenColor;
                 }
             }
         }
@@ -91,6 +102,22 @@ namespace Ziarna
         public Bitmap DrawGrains()
         {
             return Graphic.DrawGrains(Grains);
+        }
+
+        public void GrowGrains(int boardWidth, int boardHeight)
+        {
+            for (int i = 0; i < boardWidth - 1; i++)
+            {
+                for (int j = 0; j < boardHeight - 1; j++)
+                {
+                    Grain currentGrain = GrainsInPreviousStep[i, j];
+                    Grain grainNeighbour = currentGrain.CheckNeigbours();
+                    if (grainNeighbour.IsAlive())
+                    {
+                        GrainsInCurrentStep[i, j].Reviev(currentGrain);
+                    }
+                }
+            }
         }
     }
 }
