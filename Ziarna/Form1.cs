@@ -74,56 +74,6 @@ namespace Ziarna
             pictureBox1.Image = board.DrawGrains();
         }
 
-        private Grain[,] InitiazlizeNotEmpty(Grain[,] tab)
-        {
-            for (int i = 0; i < pictureBox1.Width; i++)
-                for (int j = 0; j < pictureBox1.Height; j++)
-                {
-                    if (tab[i, j].PenColor.Color.A != state.Color.A &&
-                        tab[i, j].PenColor.Color.B != state.Color.B &&
-                        tab[i, j].PenColor.Color.G != state.Color.G &&
-                        tab[i, j].PenColor.Color.R != state.Color.R)
-                    {
-                        tab[i, j] = new Grain()
-                        {
-                            State = 0,
-                            PenColor = new Pen(color: Color.White)
-                        };
-                    }
-                    
-                }
-            return tab;
-        }
-
-        private void InitialStep()
-        {
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    foreach (var grain in grains)
-                    {
-                        if (i == grain.PositionX && j == grain.PositionY)
-                        {
-                            if (grain.PenColor == state)
-                            {
-                                previousStep[i, j].State = 1;
-                                previousStep[i, j].PenColor = state;
-                            }
-                            else
-                            {
-                                previousStep[i, j].State = 1;
-                                previousStep[i, j].PenColor = grain.PenColor;
-                            }
-
-                        }
-
-                    }
-                }
-
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -454,7 +404,7 @@ namespace Ziarna
                 {
                     PositionX = Int32.Parse(data[0]),
                     PositionY = Int32.Parse(data[1]),
-                    State = Int32.Parse(data[2]),
+                    Alive = Int32.Parse(data[2]),
                     PenColor = new Pen(ColorTranslator.FromHtml((data[3])))
                 };
                 grains.Add(grain);
@@ -510,7 +460,7 @@ namespace Ziarna
                     {
                         inclusion[i, j] = new Grain()
                         {
-                            State = 1,
+                            Alive = 1,
                             PenColor = new Pen(color: Color.Black),
                             PositionX = inclusions[k].X,
                             PositionY = inclusions[k].Y
@@ -592,7 +542,7 @@ namespace Ziarna
                     {
                         inclusion[i, j] = new Grain()
                         {
-                            State = 1,
+                            Alive = 1,
                             PenColor = new Pen(color: Color.Black),
                             PositionX = inclusions[k].X,
                             PositionY = inclusions[k].Y
@@ -795,7 +745,7 @@ namespace Ziarna
                     grain.PositionY = j;
                     int x = random.Next(pens.Count);
                     grain.PenColor = pens[x];
-                    grain.State = x;
+                    grain.Alive = x;
                     grains.Add(grain);
                     //colors.Add(grain.Pen);
                 }
@@ -1389,13 +1339,13 @@ namespace Ziarna
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
                     Grain grain = new Grain();
-                    if (currentStep[i,j].State != 1)
+                    if (currentStep[i,j].Alive != 1)
                     {
                         grain.PositionX = i;
                         grain.PositionY = j;
                         int x = random.Next(pens.Count);
                         grain.PenColor = pens[x];
-                        grain.State = x + 1;
+                        grain.Alive = x + 1;
                         grains.Add(grain);
                         //colors.Add(grain.Pen);
                     }
@@ -1433,7 +1383,7 @@ namespace Ziarna
             }
             foreach (Grain grain in temp2)
             {
-                if (grain.State != 1)
+                if (grain.Alive != 1)
                 {
                     temp.Add(grain);
                 }
@@ -1644,7 +1594,7 @@ namespace Ziarna
                                 gr = new Grain();
                                 gr.PositionX = j;
                                 gr.PositionY = k;
-                                gr.State = -1;
+                                gr.Alive = -1;
                                 gr.H = 0;
                                 gr.PenColor = new Pen(Color.FromArgb(rand.Next(0, 255), 0, 0));
                                 //energies.Add(gr);
