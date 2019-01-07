@@ -15,11 +15,13 @@ namespace Ziarna
         public Grain[,] SelectedGrains { get; set; }
         public List<Pen> PenColors { get; set; }
         public Graphic Graphic { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public Board(List<Grain> grains, Grain[,] grainsInPreviousStep, Grain[,] grainsInCurrentStep)
         {
             this.Grains = grains;
-            this.GrainsInPreviousStep = grainsInPreviousStep;
+            this.GrainsInPreviousStep = new Grain[Width, Height];
             this.GrainsInCurrentStep = grainsInCurrentStep;
         }
 
@@ -115,9 +117,22 @@ namespace Ziarna
                     if (grainNeighbour.IsAlive())
                     {
                         GrainsInCurrentStep[i, j].Reviev(currentGrain);
+                        Grains.Add(currentGrain);
                     }
                 }
             }
+        }
+
+        public bool IsNotFull()
+        {
+            bool isNotFull = true;
+
+            if (Grains.Count == Width * Height)
+            {
+                isNotFull = false;
+            }
+
+            return isNotFull;
         }
     }
 }
