@@ -73,16 +73,6 @@ namespace Ziarna
             pictureBox1.Image = board.DrawGrains();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             while (board.IsNotFull())
@@ -94,67 +84,12 @@ namespace Ziarna
 
         private void button3_Click(object sender, EventArgs e)
         {
-            using (System.IO.StreamWriter file =
-           new System.IO.StreamWriter(@"C:\Users\Olka\Desktop\Ziarna.txt"))
-            {
-                for (int i = 0; i < pictureBox1.Size.Width; i++)
-                {
-                    for (int j = 0; j < pictureBox1.Size.Height - 1; j++)
-                    {
-
-                        file.WriteLine("{0} {1} {2} {3}", i, j, currentStep[i, j].State, ColorTranslator.ToHtml(currentStep[i, j].PenColor.Color));
-                    }
-                }
-
-            }
+            Save.Import(Width, Height, board.GrainsInCurrentStep);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-
-            int size = -1;
-            string file = null;
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK) 
-            {
-                file = openFileDialog1.FileName;
-                try
-                {
-                    string text = File.ReadAllText(file);
-                    size = text.Length;
-                }
-                catch (IOException)
-                {
-                }
-            }
-
-            grains = new List<Grain>();
-            string[] lines = System.IO.File.ReadAllLines(file);
-
-            string test = lines[0].Replace(" ", "");
-            string test2 = test[0].ToString();
-            string test3 = test[1].ToString();
-            string test4 = test[2].ToString();
-            string test5 = lines[0].Remove(0, 6);
-
-            foreach (var line in lines)
-            {
-
-                var data = line.Split(' ');
-                Grain grain = new Grain()
-                {
-                    PositionX = Int32.Parse(data[0]),
-                    PositionY = Int32.Parse(data[1]),
-                    Alive = Int32.Parse(data[2]),
-                    PenColor = new Pen(ColorTranslator.FromHtml((data[3])))
-                };
-                grains.Add(grain);
-
-            }
-            if (bitmap == null)
-            {
-                bitmap = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            }
+            board.Grains = Save.Export(openFileDialog1);
             DrawGrains();
         }
 
