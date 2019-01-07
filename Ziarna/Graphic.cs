@@ -17,7 +17,7 @@ namespace Ziarna
             Graphics = Graphics.FromImage(Bitmap);
             foreach (var grain in grains)
             {
-                Graphics.DrawRectangle(grain.PenColor, grain.PositionX, grain.PositionY, 1, 1);
+                Graphics.DrawRectangle(grain.PenColor, grain.Position.X, grain.Position.Y, 1, 1);
             }
 
             return Bitmap;
