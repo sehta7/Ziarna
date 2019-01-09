@@ -13,6 +13,7 @@ namespace Ziarna
         public Grain[,] GrainsInPreviousStep { get; set; }
         public Grain[,] GrainsInCurrentStep { get; set; }
         public Grain[,] SelectedGrains { get; set; }
+        public List<Inclusion> Inclusions { get; set; }
         public List<Pen> PenColors { get; set; }
         public Graphic Graphic { get; set; }
         public int Width { get; set; }
@@ -89,6 +90,11 @@ namespace Ziarna
             }
         }
 
+        internal Bitmap DrawCircleInclusion()
+        {
+            return Graphic.DrawCircleInclusions(Inclusions);
+        }
+
         private void InitializeFirstStepOfGrains(int xGrainPosition, int yGrainPosition, Grain[,] grains)
         {
             foreach (var grain in Grains)
@@ -133,6 +139,22 @@ namespace Ziarna
             }
 
             return isNotFull;
+        }
+
+        public void GenerateInclusions(int boardWidth, int boardHeight, int numberOfInclusions)
+        {
+            for (int i = 0; i < numberOfInclusions; i++)
+            {
+                for (int j = 0; j < boardWidth; j++)
+                {
+                    for (int k = 0; k < boardHeight; k++)
+                    {
+                        Inclusion inclusion = new Inclusion();
+                        inclusion.SetRandomlyPosition(boardWidth, boardHeight);
+                        Inclusions.Add(inclusion);
+                    }
+                }
+            }
         }
     }
 }

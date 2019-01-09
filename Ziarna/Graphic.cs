@@ -22,5 +22,16 @@ namespace Ziarna
 
             return Bitmap;
         }
+
+        internal Bitmap DrawCircleInclusions(List<Inclusion> inclusions)
+        {
+            Graphics = Graphics.FromImage(Bitmap);
+            foreach (var inclusion in inclusions)
+            {
+                Graphics.DrawEllipse(inclusion.PenColor, inclusion.Position.X, inclusion.Position.Y, inclusion.Size, inclusion.Size);
+            }
+
+            return Bitmap;
+        }
     }
 }
