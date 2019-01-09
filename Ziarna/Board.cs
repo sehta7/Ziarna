@@ -129,6 +129,11 @@ namespace Ziarna
             }
         }
 
+        internal Bitmap DrawSquareInclusion()
+        {
+            return Graphic.DrawSquareInclusions(Inclusions);
+        }
+
         public bool IsNotFull()
         {
             bool isNotFull = true;

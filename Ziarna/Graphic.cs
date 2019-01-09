@@ -33,5 +33,16 @@ namespace Ziarna
 
             return Bitmap;
         }
+
+        internal Bitmap DrawSquareInclusions(List<Inclusion> inclusions)
+        {
+            Graphics = Graphics.FromImage(Bitmap);
+            foreach (var inclusion in inclusions)
+            {
+                Graphics.DrawRectangle(inclusion.PenColor, inclusion.Position.X, inclusion.Position.Y, inclusion.Size, inclusion.Size);
+            }
+
+            return Bitmap;
+        }
     }
 }

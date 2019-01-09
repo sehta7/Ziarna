@@ -106,6 +106,19 @@ namespace Ziarna
             pictureBox1.Image = board.DrawCircleInclusion();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int numberOfInclusions = Int32.Parse(textBox5.Text);
+            int sizeOfInclusions = Int32.Parse(textBox6.Text);
+            board.GenerateInclusions(Width, Height, numberOfInclusions);
+            DrawSquareInclusion(board.Inclusions);
+        }
+
+        private void DrawSquareInclusion(List<Inclusion> inclusions)
+        {
+            pictureBox1.Image = board.DrawSquareInclusion();
+        }
+
         private void button7_Click(object sender, EventArgs e)
         {
             bitmap = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
@@ -122,60 +135,6 @@ namespace Ziarna
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Random rand = new Random();
-            List<Point> inclusions = new List<Point>();
-            Graphics g = Graphics.FromImage(bitmap);
-            Point point = new Point();
-            Grain[,] inclusion = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
-
-            for (int i = 0; i < Int32.Parse(textBox5.Text); i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Width - 1; j++)
-                {
-                    for (int k = 0; k < pictureBox1.Size.Height - 1; k++)
-                    {
-                        if (previousStep[j, k].PenColor != previousStep[j + 1, k + 1].PenColor)
-                        {
-                            int pointX = j; 
-                            int pointY = k; 
-                            point = new Point(pointX, pointY);
-                            inclusions.Add(point);
-                        }
-                    }
-                }
-            }
-
-
-            for (int i = 0; i < Int32.Parse(textBox5.Text); i++)
-            {
-                int cor = rand.Next(inclusions.Count());
-                Brush brush = new SolidBrush(Color.Black);
-                g.FillRectangle(brush, inclusions[cor].X, inclusions[cor].Y, Int32.Parse(textBox6.Text), Int32.Parse(textBox6.Text));
-
-            }
-
-
-
-            for (int k = 0; k < Int32.Parse(textBox5.Text); k++)
-            {
-                for (int i = 0; i < pictureBox1.Width; i++)
-                    for (int j = 0; j < pictureBox1.Height; j++)
-                    {
-                        inclusion[i, j] = new Grain()
-                        {
-                            Alive = 1,
-                            PenColor = new Pen(color: Color.Black),
-                            PositionX = inclusions[k].X,
-                            PositionY = inclusions[k].Y
-                        };
-                    }
-            }
-            previousStep = InitiazlizeGrainTable(inclusion);
-            pictureBox1.Image = bitmap;
         }
 
         private void button8_Click(object sender, EventArgs e)
