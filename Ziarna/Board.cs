@@ -167,5 +167,61 @@ namespace Ziarna
             Graphic.clear(boardWidth, boardHeight);
             InitializeGrainTables(boardWidth, boardHeight);
         }
+
+        public void SelectTheSameGrains(int boardWidth, int boardHeight)
+        {
+            Pen choosenColor = ChooseRandomColor();
+
+            for (int i = 0; i < boardWidth; i++)
+            {
+                for (int j = 0; j < boardHeight; j++)
+                {
+                    Pen currentColor = GrainsInCurrentStep[i, j].PenColor;
+                    if (GrainsInCurrentStep[i, j].HasSameColor(choosenColor, currentColor))
+                    {
+                        RememberGrain(choosenColor, i, j);
+                    }
+                    else
+                    {
+                        ClearGrain(i, j);
+                    }
+                }
+            }
+
+        }
+
+        public void RememberSelectedGrains(int boardWidth, int boardHeight)
+        {
+            for (int i = 0; i < boardWidth; i++)
+            {
+                for (int j = 0; j < boardHeight; j++)
+                {
+                    SelectedGrains[i, j] = GrainsInCurrentStep[i, j];
+                }
+            }
+        }
+
+        private void ClearGrain(int x, int y)
+        {
+            GrainsInCurrentStep[x, y].SetGrainAlive();
+            GrainsInCurrentStep[x, y].PenColor = new Pen(Color.White);
+            GrainsInPreviousStep[x, y].SetGrainAlive();
+            GrainsInPreviousStep[x, y].PenColor = new Pen(Color.White);
+        }
+
+        private void RememberGrain(Pen choosenColor, int x, int y)
+        {
+            GrainsInCurrentStep[x, y].SetGrainAlive();
+            GrainsInCurrentStep[x, y].PenColor = choosenColor;
+            GrainsInPreviousStep[x, y].SetGrainAlive();
+            GrainsInPreviousStep[x, y].PenColor = choosenColor;
+        }
+
+        private Pen ChooseRandomColor()
+        {
+            Random rand = new Random();
+            int x = rand.Next(PenColors.Count);
+            return new Pen(PenColors[x].Color);
+        }
     }
 }
