@@ -231,10 +231,24 @@ namespace Ziarna
             Boundaries = new List<Point>();
             notBoundaries = new List<Point>();
 
+            SelectNotAll(false, boardWidth, boardHeight);
+        }
+
+        private void SelectNotAll(bool notAll, int boardWidth, int boardHeight)
+        {
             for (int i = 0; i < boardWidth; i++)
             {
                 for (int j = 0; j < boardHeight; j++)
                 {
+                    if (notAll)
+                    {
+                        if (GrainsInPreviousStep[i, j].PenColor.Color == Color.White)
+                        {
+                            notBoundaries.Add(new Point(i, j));
+                            continue;
+                        }
+                    }
+
                     if ((i < boardWidth - 1 &&
                         GrainsInPreviousStep[i, j].PenColor != GrainsInPreviousStep[i + 1, j].PenColor) ||
                         (j < boardHeight - 1 &&
@@ -248,6 +262,14 @@ namespace Ziarna
                     }
                 }
             }
+        }
+
+        public void SelectBoundary(int boardWidth, int boardHeight)
+        {
+            Boundaries = new List<Point>();
+            notBoundaries = new List<Point>();
+
+            SelectNotAll(true, boardWidth, boardHeight);
         }
 
         public Bitmap DrawBoundaries(int boardWidth, int boardHeight)

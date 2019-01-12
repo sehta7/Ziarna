@@ -305,7 +305,6 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(60, 20);
             this.textBox7.TabIndex = 27;
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // button12
             // 
