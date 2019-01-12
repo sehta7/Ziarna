@@ -140,63 +140,10 @@ namespace Ziarna
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Random rand = new Random();
-            int x = rand.Next(colors.Count);
-            state = new Pen(colors[x].Color);
+            board.SelectTheSameGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.RememberSelectedGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
 
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    if (state.Color.A == currentStep[i, j].PenColor.Color.A &&
-                        state.Color.B == currentStep[i, j].PenColor.Color.B &&
-                        state.Color.G == currentStep[i, j].PenColor.Color.G &&
-                        state.Color.R == currentStep[i, j].PenColor.Color.R)
-                    {
-                        previousStep[i, j].PenColor = state;
-                        previousStep[i, j].State = 1;
-                        previousStep[i, j].PositionX = i;
-                        previousStep[i, j].PositionY = j;
-                        currentStep[i, j].PenColor = state;
-                        currentStep[i, j].State = 1;
-                        currentStep[i, j].PositionX = i;
-                        currentStep[i, j].PositionY = j;
-                    }
-                    else
-                    {
-                        previousStep[i, j].PenColor = new Pen(Color.White);
-                        previousStep[i, j].State = 0;
-                        previousStep[i, j].PositionX = i;
-                        previousStep[i, j].PositionY = j;
-                        currentStep[i, j].PenColor = new Pen(Color.White);
-                        currentStep[i, j].State = 0;
-                        currentStep[i, j].PositionX = i;
-                        currentStep[i, j].PositionY = j;
-                    }
-                }
-            }
-
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    selectedGrains[i, j] = currentStep[i, j];
-
-
-                }
-            }
-
-            Graphics g = Graphics.FromImage(bitmap);
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    g.DrawRectangle(currentStep[i, j].PenColor, currentStep[i, j].PositionX, currentStep[i, j].PositionY, 1, 1);
-                }
-                
-            }            
-
-            pictureBox1.Image = bitmap;
+            pictureBox1.Image = board.DrawGrains();
         }
 
         private void button9_Click(object sender, EventArgs e)
