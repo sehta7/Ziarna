@@ -45,9 +45,26 @@ namespace Ziarna
             return Bitmap;
         }
 
-        public Bitmap clear(int boardWidth, int boardHeight)
+        public Bitmap Clear(int boardWidth, int boardHeight)
         {
             Bitmap = new Bitmap(boardWidth, boardHeight);
+            return Bitmap;
+        }
+
+        public Bitmap DrawBoundaries(List<Point> boundaries, List<Point> notBoundaries)
+        {
+            for (int i = 0; i < boundaries.Count; i++)
+            {
+                Brush blackColor = new SolidBrush(Color.Black);
+                Graphics.FillRectangle(blackColor, boundaries[i].X, boundaries[i].Y, 1, 1);
+            }
+
+            for (int i = 0; i < notBoundaries.Count; i++)
+            {
+                Brush whiteColor = new SolidBrush(Color.White);
+                Graphics.FillRectangle(whiteColor, notBoundaries[i].X, notBoundaries[i].Y, 1, 1);
+            }
+
             return Bitmap;
         }
     }

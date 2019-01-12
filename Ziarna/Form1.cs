@@ -148,48 +148,8 @@ namespace Ziarna
 
         private void button9_Click(object sender, EventArgs e)
         {
-
-            List<Point> boundaries = new List<Point>();
-            List<Point> white = new List<Point>();
-            Graphics g = Graphics.FromImage(bitmap);
-            Point point = new Point();
-
-                for (int j = 0; j < pictureBox1.Size.Width; j++)
-                {
-                    for (int k = 0; k < pictureBox1.Size.Height; k++)
-                    {
-                        
-                        if ((j < pictureBox1.Size.Width - 1 && previousStep[j, k].PenColor != previousStep[j + 1, k].PenColor) || (k < pictureBox1.Size.Height - 1 && previousStep[j, k].PenColor != previousStep[j, k + 1].PenColor))
-                        {
-                            int pointX = j;
-                            int pointY = k;
-                            point = new Point(pointX, pointY);
-                            boundaries.Add(point);
-                        }
-                        else
-                        {
-                            int pointX = j;
-                            int pointY = k;
-                            point = new Point(pointX, pointY);
-                            white.Add(point);
-                        }
-                    }
-                }
-
-
-            for (int i = 0; i < boundaries.Count; i++)
-            {
-                Brush brush = new SolidBrush(Color.Black);
-                g.FillRectangle(brush, boundaries[i].X, boundaries[i].Y, 1, 1);
-            }
-
-            for (int i = 0; i < white.Count; i++)
-            {
-                Brush brushWhite = new SolidBrush(Color.White);
-                g.FillRectangle(brushWhite, white[i].X, white[i].Y, 1, 1);
-            }
-
-            pictureBox1.Image = bitmap;
+            board.SelectBoundaries(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            pictureBox1.Image = board.DrawBoundaries(pictureBox1.Size.Width, pictureBox1.Size.Height);
         }
 
         private void button10_Click(object sender, EventArgs e)

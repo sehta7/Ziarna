@@ -15,6 +15,8 @@ namespace Ziarna
         public Grain[,] SelectedGrains { get; set; }
         public List<Inclusion> Inclusions { get; set; }
         public List<Pen> PenColors { get; set; }
+        public List<Point> Boundaries { get; set; }
+        public List<Point> notBoundaries { get; set; }
         public Graphic Graphic { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
@@ -164,7 +166,7 @@ namespace Ziarna
 
         public void clearBoard(int boardWidth, int boardHeight)
         {
-            Graphic.clear(boardWidth, boardHeight);
+            Graphic.Clear(boardWidth, boardHeight);
             InitializeGrainTables(boardWidth, boardHeight);
         }
 
@@ -222,6 +224,35 @@ namespace Ziarna
             Random rand = new Random();
             int x = rand.Next(PenColors.Count);
             return new Pen(PenColors[x].Color);
+        }
+
+        public void SelectBoundaries(int boardWidth, int boardHeight)
+        {
+            Boundaries = new List<Point>();
+            notBoundaries = new List<Point>();
+
+            for (int i = 0; i < boardWidth; i++)
+            {
+                for (int j = 0; j < boardHeight; j++)
+                {
+                    if ((i < boardWidth - 1 &&
+                        GrainsInPreviousStep[i, j].PenColor != GrainsInPreviousStep[i + 1, j].PenColor) ||
+                        (j < boardHeight - 1 &&
+                        GrainsInPreviousStep[i, j].PenColor != GrainsInPreviousStep[i, j + 1].PenColor))
+                    {
+                        Boundaries.Add(new Point(i, j));
+                    }
+                    else
+                    {
+                        notBoundaries.Add(new Point(i, j));
+                    }
+                }
+            }
+        }
+
+        public Bitmap DrawBoundaries(int boardWidth, int boardHeight)
+        {
+            return Graphic.DrawBoundaries(Boundaries, notBoundaries);
         }
     }
 }
