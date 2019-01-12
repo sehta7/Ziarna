@@ -93,6 +93,18 @@ namespace Ziarna
         {
             this.Alive = true;
         }
+
+        internal bool HasSameColor(Pen choosenColor, Pen penColor)
+        {
+            bool theSame = false;
+
+            if (choosenColor.Equals(penColor))
+            {
+                theSame = true;
+            }
+
+            return theSame;
+        }
     }
 
 }
