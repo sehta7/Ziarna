@@ -44,5 +44,11 @@ namespace Ziarna
 
             return Bitmap;
         }
+
+        public Bitmap clear(int boardWidth, int boardHeight)
+        {
+            Bitmap = new Bitmap(boardWidth, boardHeight);
+            return Bitmap;
+        }
     }
 }

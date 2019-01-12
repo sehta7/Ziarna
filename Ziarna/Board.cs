@@ -161,5 +161,11 @@ namespace Ziarna
                 }
             }
         }
+
+        public void clearBoard(int boardWidth, int boardHeight)
+        {
+            Graphic.clear(boardWidth, boardHeight);
+            InitializeGrainTables(boardWidth, boardHeight);
+        }
     }
 }

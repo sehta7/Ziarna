@@ -121,11 +121,12 @@ namespace Ziarna
 
         private void button7_Click(object sender, EventArgs e)
         {
-            bitmap = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            previousStep = InitiazlizeGrainTable(previousStep);
-            currentStep = InitiazlizeGrainTable(currentStep);
+            board.clearBoard(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            ClearTextBoxes();
+        }
 
-            pictureBox1.Image = bitmap;
+        private void ClearTextBoxes()
+        {
             textBox1.Clear();
             textBox2.Clear();
             textBox3.Clear();
