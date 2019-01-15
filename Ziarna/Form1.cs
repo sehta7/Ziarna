@@ -178,58 +178,10 @@ namespace Ziarna
 
         private void button13_Click(object sender, EventArgs e)
         {
-            Random rand = new Random();
-            int x = rand.Next(colors.Count);
-            state = new Pen(colors[x].Color);
+            board.SelectTheSameGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.RememberSelectedGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
 
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    if (state.Color.A == previousStep[i, j].PenColor.Color.A &&
-                        state.Color.B == previousStep[i, j].PenColor.Color.B &&
-                        state.Color.G == previousStep[i, j].PenColor.Color.G &&
-                        state.Color.R == previousStep[i, j].PenColor.Color.R)
-                    {
-                        previousStep[i, j].PenColor = state;
-                        previousStep[i, j].State = 1;
-                        previousStep[i, j].PositionX = i;
-                        previousStep[i, j].PositionY = j;
-                        grains.Add(previousStep[i, j]);
-                    }
-                    else
-                    {
-                        previousStep[i, j].PenColor = new Pen(Color.White);
-                        previousStep[i, j].State = 0;
-                        previousStep[i, j].PositionX = i;
-                        previousStep[i, j].PositionY = j;
-                    }
-                }
-            }
-
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    selectedGrains[i, j] = previousStep[i, j];
-                    
-                }
-            }
-
-            Graphics g = Graphics.FromImage(bitmap);
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    g.DrawRectangle(previousStep[i, j].PenColor, previousStep[i, j].PositionX, previousStep[i, j].PositionY, 1, 1);
-                }
-
-            }
-
-            pictureBox1.Image = bitmap;
-
-
-
+            pictureBox1.Image = board.DrawGrains();
         }
 
         private void button14_Click(object sender, EventArgs e)
