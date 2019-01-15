@@ -59,7 +59,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.ENERGY = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
@@ -351,16 +350,6 @@
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(599, 351);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(75, 23);
-            this.button14.TabIndex = 33;
-            this.button14.Text = "Moor on MC";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
             // button15
             // 
             this.button15.Location = new System.Drawing.Point(748, 109);
@@ -534,7 +523,6 @@
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.ENERGY);
             this.Controls.Add(this.button15);
-            this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label8);
@@ -606,7 +594,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button ENERGY;
         private System.Windows.Forms.TextBox textBox9;

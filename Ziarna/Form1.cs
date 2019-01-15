@@ -184,61 +184,6 @@ namespace Ziarna
             pictureBox1.Image = board.DrawGrains();
         }
 
-        private void button14_Click(object sender, EventArgs e)
-        {
-            if (int.Parse(textBox1.Text) > 250 || int.Parse(textBox2.Text) > 150)
-            {
-                pictureBox1.Size = new Size(250, 150);
-            }
-            else
-            {
-                pictureBox1.Size = new Size(int.Parse(textBox1.Text), int.Parse(textBox2.Text));
-            }
-            grains = new List<Grain>();
-
-            previousStep = InitiazlizeNotEmpty(selectedGrains);
-            currentStep = InitiazlizeGrainTable(currentStep);
-            //foreach (Grain g in selectedGrains)
-            //{
-            //    grains.Add(g);
-            //}
-            
-
-            GenerateGrains();
-            InitialStep();
-            for (int i = 0; i < pictureBox1.Size.Width; i++)
-            {
-                for (int j = 0; j < pictureBox1.Size.Height; j++)
-                {
-                    currentStep[i, j] = previousStep[i, j];
-                }
-            }
-            if (bitmap == null)
-            {
-                bitmap = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            }
-            DrawGrains();
-            //for (int i = 0; i < pictureBox1.Size.Width; i++)
-            //{
-            //    for (int j = 0; j < pictureBox1.Size.Height; j++)
-            //    {
-            //        if(previousStep[i,j].Pen != selectedGrains[i, j].Pen)
-            //        {
-            //            previousStep[i,j].Pen = 
-            //        }
-            //    }
-            //}
-
-            var temp = 0;
-            while (temp < 100)
-            {
-
-                GrowNewGrains();
-                temp++;
-            }
-
-        }
-
         private void GrowNewGrains()
         {
             Random rand = new Random();
