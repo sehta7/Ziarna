@@ -14,9 +14,11 @@ namespace Ziarna
         public Pen PenColor { get; set; }          
         public int H { get; set; }
         public List<Grain> Neighbours { get; set; }
+        public bool Recrystallized { get; set; }
 
         public Grain(Point position, Pen penColor)
         {
+            this.Recrystallized = false;
             this.Alive = false;
             this.Position = position;
             this.PenColor = penColor;
@@ -104,6 +106,26 @@ namespace Ziarna
             }
 
             return theSame;
+        }
+
+        public void SetPosition(Point position)
+        {
+            this.Position = position;
+        }
+
+        public void SetHighEnergy()
+        {
+            this.H = 8;
+        }
+
+        public void SetLowEnergy()
+        {
+            this.H = 2;
+        }
+
+        public void SetRecrystallized()
+        {
+            this.Recrystallized = true;
         }
     }
 
