@@ -59,14 +59,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
             this.ENERGY = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.atBegining = new System.Windows.Forms.CheckBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.button16 = new System.Windows.Forms.Button();
@@ -350,16 +349,6 @@
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
-            // button15
-            // 
-            this.button15.Location = new System.Drawing.Point(748, 109);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(75, 23);
-            this.button15.TabIndex = 34;
-            this.button15.Text = "MC on Moor";
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
-            // 
             // ENERGY
             // 
             this.ENERGY.Location = new System.Drawing.Point(413, 205);
@@ -411,15 +400,15 @@
             this.checkBox2.Text = "increasing";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // atBegining
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(416, 351);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(90, 17);
-            this.checkBox3.TabIndex = 44;
-            this.checkBox3.Text = "at the beginig";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.atBegining.AutoSize = true;
+            this.atBegining.Location = new System.Drawing.Point(416, 351);
+            this.atBegining.Name = "atBegining";
+            this.atBegining.Size = new System.Drawing.Size(90, 17);
+            this.atBegining.TabIndex = 44;
+            this.atBegining.Text = "at the beginig";
+            this.atBegining.UseVisualStyleBackColor = true;
             // 
             // textBox12
             // 
@@ -515,14 +504,13 @@
             this.Controls.Add(this.button16);
             this.Controls.Add(this.textBox13);
             this.Controls.Add(this.textBox12);
-            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.atBegining);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.textBox11);
             this.Controls.Add(this.textBox10);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.ENERGY);
-            this.Controls.Add(this.button15);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label8);
@@ -594,14 +582,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button ENERGY;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox atBegining;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Button button16;
