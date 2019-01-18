@@ -156,7 +156,7 @@ namespace Ziarna
             }
         }
 
-        private int CheckEnergy(int x, int y, int boardWidth, int boardHeight)
+        public int CheckEnergy(int x, int y, int boardWidth, int boardHeight)
         {
             int count = 0;
 
