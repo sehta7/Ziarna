@@ -67,5 +67,16 @@ namespace Ziarna
 
             return Bitmap;
         }
+
+        public Bitmap DrawRecrustallizedGrains(List<Grain> grains, Pen penColor)
+        {
+            Graphics = Graphics.FromImage(Bitmap);
+            foreach (var grain in grains)
+            {
+                Graphics.DrawRectangle(penColor, grain.Position.X, grain.Position.Y, 1, 1);
+            }
+
+            return Bitmap;
+        }
     }
 }

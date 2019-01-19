@@ -314,83 +314,52 @@ namespace Ziarna
 
         private void button18_Click(object sender, EventArgs e)
         {
-            Graphics gr = Graphics.FromImage(bitmap);
-            Grain[,] temp = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
+            Grain[,] tempGrains = new Grain[pictureBox1.Size.Width, pictureBox1.Size.Height];
 
             for (int i = 0; i < pictureBox1.Size.Width; i++)
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    temp[i, j] = previousStep[i, j];
+                    tempGrains[i, j] = board.GrainsInPreviousStep[i, j];
                 }
             }
 
-            if (checkBox4.Checked)
+            if (after.Checked)
             {
-                for (int i = 0; i < pictureBox1.Size.Width; i++)
-                {
-                    for (int j = 0; j < pictureBox1.Size.Height; j++)
-                    {
-                        if (previousStep[i, j].State != -1)
-                        {
-                            if (previousStep[i, j].H == 8)
-                            {
-                                gr.DrawRectangle(new Pen(Color.Green), i, j, 1, 1);
-                            }
-                            else if (previousStep[i, j].H == 2)
-                            {
-                                gr.DrawRectangle(new Pen(Color.Blue), i, j, 1, 1);
-                            }
-                        }
-                        else
-                        {
-                            gr.DrawRectangle(new Pen(Color.Red), i, j, 1, 1);
-                        }
-
-                    }
-                }
-
-                pictureBox1.Image = bitmap;
-                pictureBox1.Refresh();
+                MatchEnergies();
+                pictureBox1.Image = board.DrawGrains();
             }
 
-            if (checkBox5.Checked)
+            if (before.Checked)
             {
-                for (int i = 0; i < pictureBox1.Size.Width; i++)
-                {
-                    for (int j = 0; j < pictureBox1.Size.Height; j++)
-                    {
-                        if (previousStep[i, j].State != -1)
-                        {
-                            if (previousStep[i, j].H == 8)
-                            {
-                                gr.DrawRectangle(new Pen(Color.Green), i, j, 1, 1);
-                            }
-                            else if (previousStep[i, j].H == 2)
-                            {
-                                gr.DrawRectangle(new Pen(Color.Blue), i, j, 1, 1);
-                            }
-                        }
-                        else
-                        {
-                            gr.DrawRectangle(new Pen(Color.Red), i, j, 1, 1);
-                        }
 
-                    }
-                }
-
-                pictureBox1.Image = bitmap;
-                pictureBox1.Refresh();
             }
+        }
 
+        private void MatchEnergies()
+        {
             for (int i = 0; i < pictureBox1.Size.Width; i++)
             {
                 for (int j = 0; j < pictureBox1.Size.Height; j++)
                 {
-                    gr.DrawRectangle(previousStep[i, j].PenColor, i, j, 1, 1);
+                    if (board.GrainsInPreviousStep[i, j].Recrystallized)
+                    {
+                        if (board.GrainsInPreviousStep[i, j].H == 8)
+                        {
+                            board.DrawRecrystallizedGrains(new Pen(Color.Green));
+                        }
+                        else if (board.GrainsInPreviousStep[i, j].H == 2)
+                        {
+                            board.DrawRecrystallizedGrains(new Pen(Color.Blue));
+                        }
+                    }
+                    else
+                    {
+                        board.DrawRecrystallizedGrains(new Pen(Color.Red));
+                    }
+
                 }
             }
-
         }
     }
 }

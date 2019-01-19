@@ -73,8 +73,8 @@
             this.button18 = new System.Windows.Forms.Button();
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.after = new System.Windows.Forms.CheckBox();
+            this.before = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -470,33 +470,33 @@
             this.label9.TabIndex = 51;
             this.label9.Text = "steps";
             // 
-            // checkBox4
+            // after
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(498, 159);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(47, 17);
-            this.checkBox4.TabIndex = 52;
-            this.checkBox4.Text = "after";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.after.AutoSize = true;
+            this.after.Location = new System.Drawing.Point(498, 159);
+            this.after.Name = "after";
+            this.after.Size = new System.Drawing.Size(47, 17);
+            this.after.TabIndex = 52;
+            this.after.Text = "after";
+            this.after.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // before
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(498, 182);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(56, 17);
-            this.checkBox5.TabIndex = 53;
-            this.checkBox5.Text = "before";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.before.AutoSize = true;
+            this.before.Location = new System.Drawing.Point(498, 182);
+            this.before.Name = "before";
+            this.before.Size = new System.Drawing.Size(56, 17);
+            this.before.TabIndex = 53;
+            this.before.Text = "before";
+            this.before.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(881, 407);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
+            this.Controls.Add(this.before);
+            this.Controls.Add(this.after);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox14);
             this.Controls.Add(this.button18);
@@ -596,8 +596,8 @@
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox after;
+        private System.Windows.Forms.CheckBox before;
     }
 }
 

@@ -114,6 +114,11 @@ namespace Ziarna
             return Graphic.DrawGrains(Grains);
         }
 
+        public Bitmap DrawRecrystallizedGrains(Pen penColor)
+        {
+            return Graphic.DrawRecrustallizedGrains(Grains, penColor);
+        }
+
         public void GrowGrains(int boardWidth, int boardHeight)
         {
             for (int i = 0; i < boardWidth - 1; i++)
