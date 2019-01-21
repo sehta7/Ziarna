@@ -1,0 +1,16 @@
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\GrainsTests.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\GrainsTests.pdb
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Ziarna.exe
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Ziarna.pdb
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Ziarna.exe.config
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\obj\Debug\GrainsTests.csprojResolveAssemblyReference.cache
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\obj\Debug\GrainsTests.csproj.CoreCompileInputs.cache
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\obj\Debug\GrainsTests.dll
+C:\Users\Olka\Desktop\studia\5-I\olka\test\Ziarna\GrainsTests\obj\Debug\GrainsTests.pdb
