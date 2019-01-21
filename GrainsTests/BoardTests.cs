@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Ziarna.Tests
 {
@@ -15,23 +16,38 @@ namespace Ziarna.Tests
         public void InitializeGrainTablesTest()
         {
             //Arrange
+            int size = 50;
             List<Grain> grains = new List<Grain>();
-            Grain[,] grainsInPreviousStep = new Grain[2, 2];
-            Grain[,] grainsInCurrentStep = new Grain[2, 2];
+            Grain[,] grainsInPreviousStep = new Grain[size, size];
+            Grain[,] grainsInCurrentStep = new Grain[size, size];
             Board board = new Board(grains, grainsInPreviousStep, grainsInCurrentStep);
 
             //Act
-            board.InitializeGrainTables(2, 2);
+            board.InitializeGrainTables(size, size);
 
             //Assert
-            foreach (var grain in board.GrainsInCurrentStep)
+            for (int i = 0; i < size; i++)
             {
-                Assert.IsNotNull(grain);
+                for (int j = 0; j < size; j++)
+                {
+                    Assert.IsNotNull(board.GrainsInPreviousStep[i, j]);
+                    Assert.IsFalse(board.GrainsInPreviousStep[i, j].Alive);
+                    Assert.IsFalse(board.GrainsInPreviousStep[i, j].Recrystallized);
+                    Assert.AreEqual(i, board.GrainsInPreviousStep[i, j].Position.X);
+                    Assert.AreEqual(j, board.GrainsInPreviousStep[i, j].Position.Y);
+                }
             }
 
-            foreach (var grain in board.GrainsInPreviousStep)
+            for (int i = 0; i < size; i++)
             {
-                Assert.IsNotNull(grain);
+                for (int j = 0; j < size; j++)
+                {
+                    Assert.IsNotNull(board.GrainsInCurrentStep[i, j]);
+                    Assert.IsFalse(board.GrainsInCurrentStep[i, j].Alive);
+                    Assert.IsFalse(board.GrainsInCurrentStep[i, j].Recrystallized);
+                    Assert.AreEqual(i, board.GrainsInCurrentStep[i, j].Position.X);
+                    Assert.AreEqual(j, board.GrainsInCurrentStep[i, j].Position.Y);
+                }
             }
         }
     }
