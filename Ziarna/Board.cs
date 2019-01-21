@@ -79,41 +79,30 @@ namespace Ziarna
                 grain.SetGrainAlive();
                 Grains.Add(grain);
                 PenColors.Add(grainPenColor);
+
+                SaveGrainInArrays(xPosition, yPosition, grain);
             }
         }
 
-        public void InitializeFirstStep(int chosenBoardWidth, int chosenBoardHeight)
+        private void SaveGrainInArrays(int xPosition, int yPosition, Grain grain)
         {
-            for (int i = 0; i < chosenBoardWidth - 1; i++)
-            {
-                for (int j = 0; j < chosenBoardHeight - 1; j++)
-                {
-                    InitializeFirstStepOfGrains(i, j, GrainsInPreviousStep);
-                    InitializeFirstStepOfGrains(i, j, GrainsInCurrentStep);
-                }
-            }
-        }
-
-        internal Bitmap DrawCircleInclusion()
-        {
-            return Graphic.DrawCircleInclusions(Inclusions);
-        }
-
-        private void InitializeFirstStepOfGrains(int xGrainPosition, int yGrainPosition, Grain[,] grains)
-        {
-            foreach (var grain in Grains)
-            {
-                if (xGrainPosition == grain.Position.X && yGrainPosition == grain.Position.Y)
-                {
-                    grains[xGrainPosition, yGrainPosition].Alive = true;
-                    grains[xGrainPosition, yGrainPosition].PenColor = grain.PenColor;
-                }
-            }
+            GrainsInPreviousStep[xPosition, yPosition] = grain;
+            GrainsInCurrentStep[xPosition, yPosition] = grain;
         }
 
         public Bitmap DrawGrains()
         {
             return Graphic.DrawGrains(Grains);
+        }
+
+        public Bitmap DrawSquareInclusion()
+        {
+            return Graphic.DrawSquareInclusions(Inclusions);
+        }
+
+        public Bitmap DrawCircleInclusion()
+        {
+            return Graphic.DrawCircleInclusions(Inclusions);
         }
 
         public Bitmap DrawRecrystallizedGrains(Pen penColor)
@@ -136,11 +125,6 @@ namespace Ziarna
                     }
                 }
             }
-        }
-
-        internal Bitmap DrawSquareInclusion()
-        {
-            return Graphic.DrawSquareInclusions(Inclusions);
         }
 
         public bool IsNotFull()

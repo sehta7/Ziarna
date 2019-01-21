@@ -39,7 +39,6 @@ namespace Ziarna
             SetSize();
             board.InitializeGrainTables(width, height);
             GenerateGrains();
-            board.InitializeFirstStep(width, height);
             DrawGrains();
         }
 
