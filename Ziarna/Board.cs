@@ -64,6 +64,8 @@ namespace Ziarna
 
         public void GenerateGrains(int numberOfGrains, int chosenBoardWidth, int chosenBoardHeight)
         {
+            Grains = new List<Grain>();
+            PenColors = new List<Pen>();
             Random random = new Random();
             for (int i = 0; i < numberOfGrains; i++)
             {

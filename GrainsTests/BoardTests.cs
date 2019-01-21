@@ -12,6 +12,7 @@ namespace Ziarna.Tests
     [TestClass()]
     public class BoardTests
     {
+        
         [TestMethod()]
         public void InitializeGrainTablesTest()
         {
@@ -48,6 +49,28 @@ namespace Ziarna.Tests
                     Assert.AreEqual(i, board.GrainsInCurrentStep[i, j].Position.X);
                     Assert.AreEqual(j, board.GrainsInCurrentStep[i, j].Position.Y);
                 }
+            }
+        }
+
+        [TestMethod()]
+        public void GenerateGrainsTest()
+        {
+            //Arrange
+            int size = 50;
+            int grainsNumber = 10;
+            List<Grain> grains = new List<Grain>();
+            Grain[,] grainsInPreviousStep = new Grain[size, size];
+            Grain[,] grainsInCurrentStep = new Grain[size, size];
+            Board board = new Board(grains, grainsInPreviousStep, grainsInCurrentStep);
+
+            //Act
+            board.GenerateGrains(grainsNumber, size, size);
+
+            //Assert
+            Assert.AreEqual(grainsNumber, board.Grains.Count);
+            for (int i = 0; i < grainsNumber; i++)
+            {
+                Assert.IsTrue(board.Grains[i].Alive);
             }
         }
     }
