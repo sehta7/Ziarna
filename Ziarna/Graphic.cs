@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ziarna
 {
-    class Graphic
+    public class Graphic
     {
         public Bitmap Bitmap { get; set; }
         public Graphics Graphics { get; set; }

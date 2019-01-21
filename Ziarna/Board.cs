@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ziarna
 {
-    class Board
+    public class Board
     {
         public List<Grain> Grains { get; set; }
         public Grain[,] GrainsInPreviousStep { get; set; }
@@ -24,7 +24,7 @@ namespace Ziarna
         public Board(List<Grain> grains, Grain[,] grainsInPreviousStep, Grain[,] grainsInCurrentStep)
         {
             this.Grains = grains;
-            this.GrainsInPreviousStep = new Grain[Width, Height];
+            this.GrainsInPreviousStep = grainsInPreviousStep;
             this.GrainsInCurrentStep = grainsInCurrentStep;
         }
 
@@ -36,9 +36,9 @@ namespace Ziarna
 
         private void InitializeGrainTable(Grain[,] grains, int boardWidth, int boardHeight)
         {
-            for (int xPosition = 0; xPosition < boardWidth - 1; xPosition++)
+            for (int xPosition = 0; xPosition < boardWidth; xPosition++)
             {
-                for (int yPosition = 0; yPosition < boardHeight - 1; yPosition++)
+                for (int yPosition = 0; yPosition < boardHeight; yPosition++)
                 {
                     Point grainPosition = new Point(xPosition, yPosition);
                     Pen grainPenColor = new Pen(Color.White);

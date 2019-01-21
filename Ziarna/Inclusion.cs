@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ziarna
 {
-    class Inclusion
+    public class Inclusion
     {
         public Point Position { get; set; }
         public Pen PenColor { get; set; }
