@@ -18,8 +18,23 @@ namespace Ziarna
                     Point grainPosition = new Point(xPosition, yPosition);
                     Pen grainPenColor = new Pen(Color.White);
 
-                    grains[xPosition, yPosition] = new Grain(grainPosition, grainPenColor);
+                    Grain grain = new Grain(grainPosition, grainPenColor);
+                    AddGrainNeighbours(grain, boardWidth, boardHeight);
+
+                    grains[xPosition, yPosition] = grain;
                 }
+            }
+        }
+
+        private static void AddGrainNeighbours(Grain grain, int boardWidth, int boardHeight)
+        {
+            if (grain.IsOnFrame(boardWidth, boardHeight))
+            {
+                grain.AddSpecifiedNeighbours(boardWidth, boardHeight);
+            }
+            else
+            {
+                grain.AddAllNeighbours();
             }
         }
     }

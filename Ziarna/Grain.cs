@@ -42,7 +42,7 @@ namespace Ziarna
             this.Neighbours = neighbours;
         }
 
-        public List<Grain> AddAllNeighbours()
+        public void AddAllNeighbours()
         {
             List<Grain> neighbours = new List<Grain>();
             neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y - 1), new Pen(Color.White)));
@@ -54,12 +54,82 @@ namespace Ziarna
             neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y + 1), new Pen(Color.White)));
             neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y), new Pen(Color.White)));
 
-            return neighbours;
+            this.Neighbours = neighbours;
         }
 
-        internal List<Grain> AddSpecifiedNeighbours()
+        internal void AddSpecifiedNeighbours(int xLimit, int yLimit)
         {
-            throw new NotImplementedException();
+            List<Grain> neighbours = new List<Grain>();
+
+            if (Position.X == 0)
+            {
+                if (Position.Y == 0)
+                {
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y + 1), new Pen(Color.White)));
+                }
+                else if(Position.Y == yLimit)
+                {
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y), new Pen(Color.White)));
+                }
+                else
+                {
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y + 1), new Pen(Color.White)));
+                }
+            } else if(Position.X == xLimit)
+            {
+                if (Position.Y == 0)
+                {
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y + 1), new Pen(Color.White)));
+                }
+                else if(Position.Y == yLimit)
+                {
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y), new Pen(Color.White)));
+                }
+                else
+                {
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y + 1), new Pen(Color.White)));
+                }
+            }
+            else if (Position.Y == 0)
+            {
+                if (Position.X > 0 || Position.X < xLimit)
+                {
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y + 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y), new Pen(Color.White)));
+                }
+            }
+            else if(Position.Y == yLimit)
+            {
+                if (Position.X > 0 || Position.X < xLimit)
+                {
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X - 1, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y - 1), new Pen(Color.White)));
+                    neighbours.Add(new Grain(new Point(Position.X + 1, Position.Y), new Pen(Color.White)));
+                }
+            }
+
+            this.Neighbours = neighbours;
         }
 
         public bool IsOnFrame(int boardWidth, int boardHeight)

@@ -38,20 +38,6 @@ namespace Ziarna
             Initialization.InitializeGrainArray(GrainsInCurrentStep, Width, Height);
         }
 
-        private void AddGrainNeighbours(Grain grain)
-        {
-            List<Grain> neighbours = new List<Grain>();
-
-            if (grain.IsOnFrame(Width, Height))
-            {
-                neighbours = grain.AddSpecifiedNeighbours();
-            }
-            else
-            {
-                neighbours = grain.AddAllNeighbours();
-            }
-        }
-
         public void GenerateGrains(int numberOfGrains)
         {
             Grains = new List<Grain>();
