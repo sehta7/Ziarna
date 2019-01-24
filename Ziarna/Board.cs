@@ -32,31 +32,17 @@ namespace Ziarna
             this.Graphic = new Graphic(Width, Height);
         }
 
-        public void InitializeGrainTables(int boardWidth, int boardHeight)
+        public void InitializeGrainArrays()
         {
-            InitializeGrainTable(GrainsInPreviousStep, boardWidth, boardHeight);
-            InitializeGrainTable(GrainsInCurrentStep, boardWidth, boardHeight);
+            Initialization.InitializeGrainArray(GrainsInPreviousStep, Width, Height);
+            Initialization.InitializeGrainArray(GrainsInCurrentStep, Width, Height);
         }
 
-        private void InitializeGrainTable(Grain[,] grains, int boardWidth, int boardHeight)
-        {
-            for (int xPosition = 0; xPosition < boardWidth; xPosition++)
-            {
-                for (int yPosition = 0; yPosition < boardHeight; yPosition++)
-                {
-                    Point grainPosition = new Point(xPosition, yPosition);
-                    Pen grainPenColor = new Pen(Color.White);
-
-                    grains[xPosition, yPosition] = new Grain(grainPosition, grainPenColor);
-                }
-            }
-        }
-
-        private void AddGrainNeighbours(Grain grain, int boardWidth, int boardHeight)
+        private void AddGrainNeighbours(Grain grain)
         {
             List<Grain> neighbours = new List<Grain>();
 
-            if (grain.IsOnFrame(boardWidth, boardHeight))
+            if (grain.IsOnFrame(Width, Height))
             {
                 neighbours = grain.AddSpecifiedNeighbours();
             }
