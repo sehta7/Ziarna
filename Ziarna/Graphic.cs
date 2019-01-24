@@ -12,6 +12,12 @@ namespace Ziarna
         public Bitmap Bitmap { get; set; }
         public Graphics Graphics { get; set; }
 
+        public Graphic(int width, int height)
+        {
+            Bitmap = new Bitmap(width, height);
+            this.Graphics = Graphics.FromImage(Bitmap);
+        }
+
         public Bitmap DrawGrains(List<Grain> grains)
         {
             Graphics = Graphics.FromImage(Bitmap);

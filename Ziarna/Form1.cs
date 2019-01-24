@@ -23,10 +23,7 @@ namespace Ziarna
             InitializeComponent();
             width = pictureBox1.Size.Width;
             height = pictureBox1.Size.Height;
-            List<Grain> grains = new List<Grain>();
-            Grain[,] previousStep = new Grain[width, height];
-            Grain[,] currentStep = new Grain[width, height];
-            board = new Board(grains, previousStep, currentStep);
+            board = new Board(pictureBox1);
         }
 
         private void button1_Click(object sender, EventArgs e)

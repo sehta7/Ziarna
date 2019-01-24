@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Ziarna
 {
@@ -21,11 +22,14 @@ namespace Ziarna
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public Board(List<Grain> grains, Grain[,] grainsInPreviousStep, Grain[,] grainsInCurrentStep)
+        public Board(PictureBox pictureBox)
         {
-            this.Grains = grains;
-            this.GrainsInPreviousStep = grainsInPreviousStep;
-            this.GrainsInCurrentStep = grainsInCurrentStep;
+            this.Width = pictureBox.Size.Width;
+            this.Height = pictureBox.Size.Height;
+            this.Grains = new List<Grain>();
+            this.GrainsInPreviousStep = new Grain[Width, Height];
+            this.GrainsInCurrentStep = new Grain[Width, Height];
+            this.Graphic = new Graphic(Width, Height);
         }
 
         public void InitializeGrainTables(int boardWidth, int boardHeight)
