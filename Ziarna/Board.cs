@@ -52,15 +52,15 @@ namespace Ziarna
             }
         }
 
-        public void GenerateGrains(int numberOfGrains, int chosenBoardWidth, int chosenBoardHeight)
+        public void GenerateGrains(int numberOfGrains)
         {
             Grains = new List<Grain>();
             PenColors = new List<Pen>();
             Random random = new Random();
             for (int i = 0; i < numberOfGrains; i++)
             {
-                int xPosition = random.Next(0, chosenBoardWidth);
-                int yPosition = random.Next(0, chosenBoardHeight);
+                int xPosition = random.Next(0, Width);
+                int yPosition = random.Next(0, Height);
 
                 Point grainPosition = new Point(xPosition, yPosition);
                 Pen grainPenColor = new Pen(Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 255)));
@@ -100,11 +100,11 @@ namespace Ziarna
             return Graphic.DrawRecrustallizedGrains(Grains, penColor);
         }
 
-        public void GrowGrains(int boardWidth, int boardHeight)
+        public void GrowGrains()
         {
-            for (int i = 0; i < boardWidth - 1; i++)
+            for (int i = 0; i < Width - 1; i++)
             {
-                for (int j = 0; j < boardHeight - 1; j++)
+                for (int j = 0; j < Height - 1; j++)
                 {
                     Grain currentGrain = GrainsInPreviousStep[i, j];
                     Grain grainNeighbour = currentGrain.CheckNeigbours();
@@ -129,35 +129,35 @@ namespace Ziarna
             return isNotFull;
         }
 
-        public void GenerateInclusions(int boardWidth, int boardHeight, int numberOfInclusions)
+        public void GenerateInclusions(int numberOfInclusions)
         {
             for (int i = 0; i < numberOfInclusions; i++)
             {
-                for (int j = 0; j < boardWidth; j++)
+                for (int j = 0; j < Width; j++)
                 {
-                    for (int k = 0; k < boardHeight; k++)
+                    for (int k = 0; k < Height; k++)
                     {
                         Inclusion inclusion = new Inclusion();
-                        inclusion.SetRandomlyPosition(boardWidth, boardHeight);
+                        inclusion.SetRandomlyPosition(Width, Height);
                         Inclusions.Add(inclusion);
                     }
                 }
             }
         }
 
-        public void clearBoard(int boardWidth, int boardHeight)
+        public void clearBoard()
         {
-            Graphic.Clear(boardWidth, boardHeight);
-            InitializeGrainTables(boardWidth, boardHeight);
+            Graphic.Clear(Width, Height);
+            InitializeGrainArrays();
         }
 
-        public void SelectTheSameGrains(int boardWidth, int boardHeight)
+        public void SelectTheSameGrains()
         {
             Pen choosenColor = ChooseRandomColor();
 
-            for (int i = 0; i < boardWidth; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < boardHeight; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     Pen currentColor = GrainsInCurrentStep[i, j].PenColor;
                     if (GrainsInCurrentStep[i, j].HasSameColor(choosenColor, currentColor))
@@ -173,11 +173,11 @@ namespace Ziarna
 
         }
 
-        public void RememberSelectedGrains(int boardWidth, int boardHeight)
+        public void RememberSelectedGrains()
         {
-            for (int i = 0; i < boardWidth; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < boardHeight; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     SelectedGrains[i, j] = GrainsInCurrentStep[i, j];
                 }
@@ -207,19 +207,19 @@ namespace Ziarna
             return new Pen(PenColors[x].Color);
         }
 
-        public void SelectBoundaries(int boardWidth, int boardHeight)
+        public void SelectBoundaries()
         {
             Boundaries = new List<Point>();
             notBoundaries = new List<Point>();
 
-            SelectNotAll(false, boardWidth, boardHeight);
+            SelectNotAll(false);
         }
 
-        private void SelectNotAll(bool notAll, int boardWidth, int boardHeight)
+        private void SelectNotAll(bool notAll)
         {
-            for (int i = 0; i < boardWidth; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < boardHeight; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     if (notAll)
                     {
@@ -230,9 +230,9 @@ namespace Ziarna
                         }
                     }
 
-                    if ((i < boardWidth - 1 &&
+                    if ((i < Width - 1 &&
                         GrainsInPreviousStep[i, j].PenColor != GrainsInPreviousStep[i + 1, j].PenColor) ||
-                        (j < boardHeight - 1 &&
+                        (j < Height - 1 &&
                         GrainsInPreviousStep[i, j].PenColor != GrainsInPreviousStep[i, j + 1].PenColor))
                     {
                         Boundaries.Add(new Point(i, j));
@@ -245,15 +245,15 @@ namespace Ziarna
             }
         }
 
-        public void SelectBoundary(int boardWidth, int boardHeight)
+        public void SelectBoundary()
         {
             Boundaries = new List<Point>();
             notBoundaries = new List<Point>();
 
-            SelectNotAll(true, boardWidth, boardHeight);
+            SelectNotAll(true);
         }
 
-        public Bitmap DrawBoundaries(int boardWidth, int boardHeight)
+        public Bitmap DrawBoundaries()
         {
             return Graphic.DrawBoundaries(Boundaries, notBoundaries);
         }

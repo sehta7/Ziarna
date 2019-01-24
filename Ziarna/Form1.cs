@@ -56,12 +56,9 @@ namespace Ziarna
 
         private void GenerateGrains()
         {
-            int chosenBoardWidth = int.Parse(textBox1.Text);
-            int chosenBoardHeight = int.Parse(textBox2.Text);
-
             int chosenGrainsNumber = Int32.Parse(textBox3.Text);
 
-            board.GenerateGrains(chosenGrainsNumber, chosenBoardWidth, chosenBoardHeight);
+            board.GenerateGrains(chosenGrainsNumber);
         }
 
         private void DrawGrains()
@@ -73,7 +70,7 @@ namespace Ziarna
         {
             while (board.IsNotFull())
             {
-                board.GrowGrains(width, height);
+                board.GrowGrains();
                 DrawGrains();
             }
         }
@@ -93,7 +90,7 @@ namespace Ziarna
         {
             int numberOfInclusions = Int32.Parse(textBox5.Text);
             int sizeOfInclusions = Int32.Parse(textBox6.Text);
-            board.GenerateInclusions(Width, Height, numberOfInclusions);
+            board.GenerateInclusions(numberOfInclusions);
             DrawCircleInclusion(board.Inclusions);
         }
 
@@ -106,7 +103,7 @@ namespace Ziarna
         {
             int numberOfInclusions = Int32.Parse(textBox5.Text);
             int sizeOfInclusions = Int32.Parse(textBox6.Text);
-            board.GenerateInclusions(Width, Height, numberOfInclusions);
+            board.GenerateInclusions(numberOfInclusions);
             DrawSquareInclusion(board.Inclusions);
         }
 
@@ -117,7 +114,7 @@ namespace Ziarna
 
         private void button7_Click(object sender, EventArgs e)
         {
-            board.clearBoard(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.clearBoard();
             ClearTextBoxes();
         }
 
@@ -136,22 +133,22 @@ namespace Ziarna
 
         private void button8_Click(object sender, EventArgs e)
         {
-            board.SelectTheSameGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            board.RememberSelectedGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.SelectTheSameGrains();
+            board.RememberSelectedGrains();
 
             pictureBox1.Image = board.DrawGrains();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            board.SelectBoundaries(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            pictureBox1.Image = board.DrawBoundaries(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.SelectBoundaries();
+            pictureBox1.Image = board.DrawBoundaries();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            board.SelectBoundaries(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            pictureBox1.Image = board.DrawBoundaries(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.SelectBoundaries();
+            pictureBox1.Image = board.DrawBoundaries();
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -174,8 +171,8 @@ namespace Ziarna
 
         private void button13_Click(object sender, EventArgs e)
         {
-            board.SelectTheSameGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            board.RememberSelectedGrains(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            board.SelectTheSameGrains();
+            board.RememberSelectedGrains();
 
             pictureBox1.Image = board.DrawGrains();
         }
